@@ -1,0 +1,39 @@
+#+TITLE: C++ Primer Reading Notes - Chapter 1
+* 1.2 Input/Output
+** chaining ~cin~ and ~cout~
+*** ~cout~
+It is easy to understand ~cout~ chaining but on second thought I got confused
+#+BEGIN_SRC cpp
+  std::cout << "Hellow" << "World" << std::endl;
+  //    1          2          3           4
+#+END_SRC
+It seems that 4 is appended to 3 and (3+4) is appended to 2 and so on. *Wrong*.
+The code is equivalent to the following:
+#+BEGIN_SRC cpp
+  ((std::cout << "Hello") << "World") << std::endl
+  //         1
+  //                   2
+  //                              3
+#+END_SRC
+As explained in the book (p.7)
+#+BEGIN_QUOTE
+The << operator takes two operands: The left-hand operand must be an ostream object; the right-hand operand is a value to print. The operator writes the given value on the given ostream. The result of the output operator is its left-hand.
+#+END_QUOTE
+*** ~cin~
+I understand clearly ~std::cin >> username;~ but got confused about
+#+BEGIN_SRC cpp
+  std::cin >> user_v1 >> user_v2
+  // Won't the on-going stream all gets passed to user_v2?
+#+END_SRC
+See the explanations:
+#+BEGIN_QUOTE
+The input operator (the *» operator*) behaves analogously to the output operator. It takes an istream as its left-hand operand and an object as its right-hand operand. *It reads data from the given istream and stores what was read in the given object.* Like the output operator, the input operator returns its left-hand operand as its result.
+#+END_QUOTE
+But what happens when a user gives two numbers on command line like `2 3'?
+An answer from StackOverflow explains:
+#+BEGIN_QUOTE
+Each call to ~operator>>(istream&, T)~ (where ~T~ is some arbitrary type) returns a reference to its first argument. So cin >> a returns cin, which can be used as (cin>>a)>>b and so forth.
+
+Note that each call to ~operator>>(istream&, T)~ *first consumes all whitespace characters*, then as many characters as is required to satisfy the input operation, up to (but not including) the first next whitespace character, invalid character, or EOF.
+#+END_QUOTE
+So after ~cin~ puts a valid stream into an object (say, a variable), it returns itself, ready for the next valid stream.
