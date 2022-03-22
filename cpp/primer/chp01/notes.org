@@ -30,7 +30,7 @@ See the explanations:
 The input operator (the *» operator*) behaves analogously to the output operator. It takes an istream as its left-hand operand and an object as its right-hand operand. *It reads data from the given istream and stores what was read in the given object.* Like the output operator, the input operator returns its left-hand operand as its result.
 #+END_QUOTE
 But what happens when a user gives two numbers on command line like `2 3'?
-An answer from StackOverflow explains:
+An answer from [[https://stackoverflow.com/a/7425335][StackOverflow]] explains:
 #+BEGIN_QUOTE
 Each call to ~operator>>(istream&, T)~ (where ~T~ is some arbitrary type) returns a reference to its first argument. So cin >> a returns cin, which can be used as (cin>>a)>>b and so forth.
 
