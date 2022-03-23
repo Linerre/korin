@@ -37,3 +37,16 @@ Each call to ~operator>>(istream&, T)~ (where ~T~ is some arbitrary type) return
 Note that each call to ~operator>>(istream&, T)~ *first consumes all whitespace characters*, then as many characters as is required to satisfy the input operation, up to (but not including) the first next whitespace character, invalid character, or EOF.
 #+END_QUOTE
 So after ~cin~ puts a valid stream into an object (say, a variable), it returns itself, ready for the next valid stream.
+* 1.3 Comments
+Use ~/* ... */~ for multiple line comments, better like this:
+#+BEGIN_SRC cpp
+/*
+ * This is a comment
+ * The start indicate the line is inside the multiple line comments
+ */
+#+END_SRC
+
+Use ~//~ to comment out blocks of code because:
+#+BEGIN_QUOTE
+... that code might contain nested comment pairs, the best way to comment a block of code is to insert single-line comments at the beginning of each line in the section we want to ignore
+#+END_QUOTE
