@@ -110,3 +110,62 @@ ex1_8.cpp:10:3: error: expected primary-expression before ‘return’
    10 |   return 0;
       |   ^~~~~~
 #+END_EXAMPLE
+* EXERCISED SECTION 1.4
+** Exercise 1.9
+Write a program that uses a while to sum the numbers from 50 to 100.
+#+BEGIN_SRC cpp
+#include <iostream>
+
+int main()
+{
+  int sum = 0;
+  int val = 50;
+  while ( val <=100 ) {
+    val += 1;
+    sum += val;
+  }
+  std::cout << "The sum of range 55-100 is "
+            << sum << std::endl;
+  // The sum of range 55-100 is 3876
+  return 0;
+}
+
+#+END_SRC
+** Exercise 1.10
+In addition to the ++ operator that adds 1 to its operand, there is a decrement operator (--) that subtracts 1. Use the decrement operator to write a while that prints the numbers from ten down to zero.
+#+BEGIN_SRC cpp
+#include <iostream>
+
+int main()
+{
+  int val = 10;
+  while ( val >= 0 ) {
+    std::cout << "The value of val now is "
+              << val << std::endl;
+    --val;
+  }
+  return 0;
+}
+#+END_SRC
+** Exercise 1.11
+Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.
+#+BEGIN_SRC cpp
+#include <iostream>
+
+int main()
+{
+  std::cout << "Enter two numbers separated by space: ";
+  int start = 0, end =0;
+  std::cin >> start >> end;
+
+  std::cout << "Now the numbers between "
+            << start << " and " << end
+            << " (both inclusive) will be printed below:" << std::endl;
+  while (start <= end) {
+    std::cout << "The number in this turn is "
+              << start << std::endl;
+    ++start;
+  }
+  return 0;
+}
+#+END_SRC
