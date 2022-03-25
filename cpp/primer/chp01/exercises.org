@@ -217,3 +217,57 @@ Ahhhh, I've written too much such sh*t and the compiler yelled at me for hundred
 * EXERCISES SECTION 1.4.3
 ** Exercise 1.16
 Write your own version of a program that prints the sum of a set of integers read from cin.
+* EXERCISES SECTION 1.4.4 - 5
+** Exercise 1.17
+What happens in the program presented in this section if the input val- ues are all equal? What if there are no duplicated values? See below 1.18
+** Exercise 1.18
+Compile and run the program from this section giving it only equal values as input. Run it again giving it values in which no number is repeated.
+#+BEGIN_SRC shell
+# input same numbers
+./eg1_16_1.out
+100 100 100 100 # Ctrl-D
+# 100 occurs 4 times
+
+# input with different numbers each time
+10 20 30 40
+# 10 occurs 1 times
+# 20 occurs 1 times
+# 30 occurs 1 times
+# 40 occurs 1 times
+#+END_SRC
+** Exercise 1.19
+Revise the program you wrote for the exercises in § 1.4.1 (p. 13) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
+#+BEGIN_SRC cpp
+#include <iostream>
+
+int main()
+{
+  int sum = 0;
+  int val = 0;
+
+  std::cout << "Enter random integers " << std::endl;
+  std::cout << "But the latter should be bigger than the former. " << std::endl;
+  std::cout << "Press Enter and then Ctrl-D to terminate: " << std::endl;
+
+  if (std::cin >> val) {//Make sure we have invalid data to process
+    int curr_val = val;
+    std::cout << "The first number is " << curr_val << std::endl;
+
+    while (std::cin >> val) {
+      if (val > curr_val) {
+        std::cout << "The number following is " << val
+                  << " and it is bigger than "<< curr_val << std::endl;
+      } else {
+        std::cout << "Number " << val << " is smaller than its precedor "
+                  << curr_val
+                  << " Make sure the next number is bigger than " << val
+                  << std::endl;
+        curr_val = val;
+      }
+      // update curr_val for the next loop
+      curr_val = val;
+    }
+  }
+  return 0;
+}
+#+END_SRC
