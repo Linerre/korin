@@ -6,10 +6,11 @@ Write a program to print Hello, World on the standard output.
 #include <iostream>
 
 int main()
-{
+
   std::cout << "Hello World" << std::endl;
   return 0;
 }
+
 #+END_SRC
 ** Exercise 1.4
 Our program used the addition operator, +, to add two numbers. Write a program that uses the multiplication operator, *, to print the product instead.
@@ -268,6 +269,71 @@ int main()
       curr_val = val;
     }
   }
+  return 0;
+}
+#+END_SRC
+* EXERCISES SECTION 1.5.1
+** Exercise 1.20
+http://www.informit.com/title/0321714113 contains a copy of Sales_item.h in the Chapter 1 code directory. Copy that file to your working directory. Use it to write a program that reads a set of book sales transactions, writing each transaction to the standard output.
+
+I don't have access to the header file, so the below code hasn't been tested
+#+BEGIN_SRC cpp
+#include <iostream>
+#include "Sales_item.h"
+
+int main()
+{
+  std::cout << "Enter an item, one each line, following the below order: "
+            << std::endl;
+  std::cout << "ISBN, number of copies sold sales, price." << std::endl;
+  std::cout << "Press Enter to start inputing a new item." << std::endl;
+
+  Sales_item my_item;
+
+  while(std::cin >> my_item) {
+    std::cout << my_item
+  }
+
+  std::cout << "See you next time!" << std::endl;
+  return 0;
+}
+#+END_SRC
+** Exercise 1.21
+Write a program that reads two Sales_item objects that have the same ISBN and produces their sum.
+
+I don't think the exercise expects me to use member functions or other types than ~int~ (which is the only type introduced and used in this chapter). The code should be exactly the same as that in Section 1.5 (p.21). That is, we assume the user inputs exactly the same ISBN twice.
+#+BEGIN_SRC cpp
+#include <iostream>
+    #include "Sales_item.h"
+int main() {
+ Sales_item item1, item2;
+ std::cin >> item1 >> item2;
+ // read a pair of transactions
+ std::cout << item1 + item2 << std::endl; // print their sum
+ return 0;
+}
+#+END_SRC
+** Exercise 1.22
+Write a program that reads several transactions for the same ISBN. Write the sum of all the transactions that were read.
+
+As I understand it, this is the code shown on page 22, with some minor tweaks:
+#+BEGIN_SRC cpp
+#include <iostream>
+#include "Sales_item.h"
+int main() {
+  std::count << "Please enter the transction: " << std::endl;
+
+  Sales_item curr_item, next_item;
+  if (std::cin >> curr_item) {// Make sure we have data
+    while (std::cin >> next_item) {
+      // let's assume the item ISBN are always the same
+      curr_item += next_item;
+    }
+  } else {
+    std::cout << "No data?" << std::endl;
+  }
+
+  std::cout << curr_item << std::endl; // print their sum
   return 0;
 }
 #+END_SRC
