@@ -5,7 +5,7 @@ int main()
   int sum = 0;
   int val = 0;
 
-  std::cout << "Enter random integers " << std::endl;
+  std::cout << "Enter random integers. " << std::endl;
   std::cout << "But the latter should be bigger than the former. " << std::endl;
   std::cout << "Press Enter and then Ctrl-D to terminate: " << std::endl;
 

@@ -330,10 +330,44 @@ int main() {
       curr_item += next_item;
     }
   } else {
-    std::cout << "No data?" << std::endl;
+    std::cerr << "No data?" << std::endl;
+    return -1;
   }
 
   std::cout << curr_item << std::endl; // print their sum
+  return 0;
+}
+#+END_SRC
+* EXERCISES SECTION 1.5.2
+** Exercise 1.23
+Write a program that reads several transactions and counts how many transactions occur for each ISBN.
+
+The ~std::cout~ in the ~else~ branch is a great way to handle change. Pay attention to the example code on p.17, section 1.4.4, as well as the last example in section 1.5.2.
+#+BEGIN_SRC cpp
+#include <iostream>
+#include "Sales_item.h"
+int main()
+{
+  Sales_item item1, item2;
+  int cnt = 0;
+  if (std::cin >> item1) {
+    while (std::cin >> item2) {
+      if (item1.isbn() == item2.isbn()) {
+        ++cnt;
+      } else {
+        // Learn this way of handling change
+        std::cout << item1.isbn() << "occurs "
+                  << cnt << " times" << std::endl;
+        item1 = item2;
+        cnt = 1;
+      }
+    }
+    std::cout << item1.isbn() << "occurs"
+              << cnt << " times." << std::endl;
+  } else {
+    std:cerr << "No data? " << std:endl;
+    return -1;
+  }
   return 0;
 }
 #+END_SRC

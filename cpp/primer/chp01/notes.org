@@ -20,6 +20,9 @@ As explained in the book (p.7)
 The << operator takes two operands: The left-hand operand must be an ostream object; the right-hand operand is a value to print. The operator writes the given value on the given ostream. The result of the output operator is its left-hand.
 #+END_QUOTE
 *** ~cin~
+:PROPERTIES:
+:CUSTOM_ID: cin-continue
+:END:
 I understand clearly ~std::cin >> username;~ but got confused about
 #+BEGIN_SRC cpp
   std::cin >> user_v1 >> user_v2
@@ -49,4 +52,44 @@ Use ~/* ... */~ for multiple line comments, better like this:
 Use ~//~ to comment out blocks of code because:
 #+BEGIN_QUOTE
 ... that code might contain nested comment pairs, the best way to comment a block of code is to insert single-line comments at the beginning of each line in the section we want to ignore
+#+END_QUOTE
+* 1.4 Flow of Control
+** 1.4.2 The ~for~ Statement
+
+** 1.4.3 Read an unknown number of input
+The following paragraph well explains the behavior of ~std::cin~, so in [[#cin-continue]], when it continues to take "character" stream input, it keeps consuming the invalid input (characters) until it encounters an invalid one, say EOF.
+#+BEGIN_QUOTE
+When we use an ~istream~ as a condition, the effect is to test the state of the stream. If the stream is valid—that is, if the stream hasn’t encountered an error— then the test succeeds. An ~istream~ becomes invalid when we hit /end-of-file/ or encounter an invalid input, such as reading a value that is not an integer. An ~istream~ that is in an invalid state will cause the condition to yield false.
+#+END_QUOTE
+
+Better to solve errors in the order they appear:
+#+BEGIN_QUOTE
+It is a good practice to correct errors in the sequence they are reported. Often a single error can have a cascading effect and cause a compiler to report more errors than actually are present.
+#+END_QUOTE
+
+Similar to the REPL, statically typed, compiled languages have their own development mode:
+#+BEGIN_QUOTE
+It is also a good idea to recompile the code after each fix—or after making at most a small number of obvious fixes. This cycle is known as edit-compile-debug.
+#+END_QUOTE
+
+** 1.5
+"Compilers usually don’t care about the form of header file names, but IDEs sometimes do."
+*** 1.5.1 The ~Sales_item~ Class
+#+BEGIN_QUOTE
+To use a class, we need not care about how it is implemented. Instead, what we need to know is what operations objects of that type can perform.
+#+END_QUOTE
+#+BEGIN_QUOTE
+Every class defines a type. The type name is the same as the name of the class.
+#+END_QUOTE
+An instance of class *A* can also be referred to as:
+1. an object of type *A* /or/
+2. an *A* object /or/
+3. an *A*
+*** 1.5.2 Member functions
+#+BEGIN_QUOTE
+A member function is a function that is defined as *part of a class*. Member functions are sometimes referred to as *methods*.
+
+Ordinarily, we call a member function on behalf of an object.
+
+When we use the dot operator (the *. operator*) to access a member function, we usually do so to call that function. We call a function using the call operator (the *() operator*). The call operator is a pair of parentheses that enclose a (possibly empty) list of /arguments/.
 #+END_QUOTE
