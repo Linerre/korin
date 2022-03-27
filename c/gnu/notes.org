@@ -1,6 +1,6 @@
 #+TITLE: Learning Some C
-* TODO ~char *ary[]~ ?
-I know it means an array of pointers that point to ~char~. But why can I do the following:
+* DOING ~char *ary[]~ ?
+It looks like an array of pointers that point to ~char~. But it is indeed a [[http://www.crasseux.com/books/ctutorial/String-arrays.html#String%20arrays][string array]], according to GNU's C tutorial.
 #+BEGIN_SRC c
 #include <stdio.h>
 
@@ -18,11 +18,9 @@ int main (int argc, char *argv[])
 }
 
 #+END_SRC
-
 ~char *my_string[]~ creates a two-dimensional array. It's a combination of the following two:
 1. ~char my_string[]~
 2. ~char *my_string~
-
 Thus, though this looks a bit strange,
 #+BEGIN_SRC c
 char *my_string[] = {"Hello", "World"}
@@ -41,3 +39,4 @@ char my_string[2][5] = {// 5 can be omitted
 }
 #+END_SRC
 Since an array's name is indeed a pointer to the first (0th) element in the array, ~char *my_string[]~ means an array of ~char *my_string~, which is indeed a string or an array of characters, or a pointer to the first letter of that string.
+[[https://overiq.com/c-programming-101/array-of-strings-in-c/][Array of Strings in C]] is worth reading.
