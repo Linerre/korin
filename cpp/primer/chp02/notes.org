@@ -1,0 +1,73 @@
+#+TITLE: Notes - Chapter 2
+* 2.1 Primitive Built-in Types
+#+BEGIN_QUOTE
+C++ defines a set of primitive types that include the *arithmetic types*  and a special type named *void*.
+
+The ~void~ type has no associated values and can be used in only a few circumstances, most commonly as the return type for functions that do not return a value.
+#+END_QUOTE
+** 2.1.1 Arithmetic Types
+Two categories:
+1. integer types
+2. floating-point types
+#+BEGIN_QUOTE
+A ~char~ is guaranteed to be big enough to hold numeric values corresponding to the characters in the machine’s basic character set.
+
+That is, a ~char~ is the same size as a single machine byte.
+
+In C++ a byte has at least as many bits as are needed to hold a character in the machine’s basic character set.
+
+The smallest chunk of addressable memory is referred to as a “byte.” The basic unit of storage, usually a small number of bytes, is referred to as a “word.”
+
+On most machines a byte contains 8 bits and a word is either 32 or 64 bits, that is, 4 or 8 bytes.
+#+END_QUOTE
+*** signed and Unsigned Types
+"signed" means there is a *sign* (either + or -).
+#+BEGIN_QUOTE
+float usually does not have enough precision, and the cost of double-precision calculations versus single- precision is negligible. In fact, on some machines, double-precision operations are faster than single.
+#+END_QUOTE
+For the explanation of the below snippet, read p.35.
+#+BEGIN_SRC cpp
+unsigned char c = -1; // assuming 8-bit chars, c has value 255
+#+END_SRC
+#+BEGIN_QUOTE
+If we assign an out-of-range value to an object of unsigned type, the result is the remainder of the value modulo the /number of values/ the target type can hold.
+#+END_QUOTE
+#+BEGIN_QUOTE
+If we assign an out-of-range value to an object of signed type, the result is *undefined*. (work, crash, or garbage)
+#+END_QUOTE
+When mixing signed and unsigned values, signed will be "automatically converted to unsigned", yielding surprising results. So *don't mix them*!
+*** Literals
+- By default, deci- mal literals are signed whereas octal and hexadecimal literals can be either signed or unsigned types.
+- Using scientific notation, the exponent is indicated by either ~E~ or ~e~
+- By default, floating-point literals have type ~double~.
+- The compiler appends a null character (’\0’) to every string literal. Thus, the actual size of a string literal is one more than its apparent size.
+- if a ~\~ is followed by more than three octal digits, only the first three are associated with the ~\~.
+*** Specifying the Type of a Literal
+Table 2.2 on p.40 is really useful for reference
+*** Boolean and Pointer Literals
+The word ~nullptr~ is a pointer literal.
+* 2.2 Variables
+** 2.2.1 Variable Definitions
+*** Initializers
+*immediately*
+#+BEGIN_QUOTE
+When a definition defines two or more variables, the name of each object becomes visible immediately. Thus, it is possible to initialize a variable to the value of one defined earlier in the same definition.
+#+END_QUOTE
+"Initialization is not assignment."
+*** List Initialization
+#+BEGIN_QUOTE
+The compiler will not let us list initialize variables of built-in type if the initializer might lead to the loss of information:
+#+END_QUOTE
+*** Default Initialization
+#+BEGIN_QUOTE
+Variables defined outside any function body are initialized to zero.
+
+variables of built-in type defined inside a function are *uninitialized*.
+
+The value of an uninitialized vari- able of built-in type is undefined.
+#+END_QUOTE
+** 2.2.2 ariable Declarations and Definitions
+C++ supports *separate compilation.*
+#+BEGIN_QUOTE
+Separate compilation lets us split our programs into several files, each of which can be compiled independently.
+#+END_QUOTE
