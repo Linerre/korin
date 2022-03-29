@@ -66,7 +66,9 @@ ex2_6.cpp:7:16: error: ‘day’ was not declared in this scope
 What values do these literals represent? What type does each have?
 #+BEGIN_EXAMPLE
 (a) "Who goes with F\145rgus?\012"
-(b) 3.14e1L (c) 1024f (d) 3.14L
+(b) 3.14e1L
+(c) 1024f
+(d) 3.14L
 #+END_EXAMPLE
 ** DONE Exercise 2.8
 Using escape sequences, write a program to print ~2M~ followed by a new-
@@ -81,3 +83,63 @@ Explain whether each of the following is a declaration or a definition:
 // or is uninitialized if inside a function
 (c) extern int iz; // declarition
 #+END_EXAMPLE
+* EXERCISES SECTION 2.3.2
+** DONE Exercise 2.18
+Write code to change the value of a pointer. Write code to change the value to which the pointer points.
+See [[file:./ex2_18.cpp][ex2_18.cpp]]
+** DONE Exercise 2.19
+Explain the key differences between pointers and references.
+
+Pointers are objects. They have their own addresses and they can have references.
+References in contrast are not objects. They are just aliases of some objects and they can't be referred to.
+** DONE Exercise 2.20
+What does the following program do?
+#+BEGIN_SRC cpp
+int i = 42; // create a varibale of type int and initialize it to 42
+int *p1 = &i; // create a pointer of type int and points to int i
+*p1 = *p1 * *p1; // change the val of i using pointer dereference
+// the new val of i would be the square of its original val
+#+END_SRC
+** DONE Exercise 2.21
+Explain each of the following definitions. Indicate whether any are illegal and, if so, why.
+#+BEGIN_SRC cpp
+int i = 0;
+
+double *dp = &i; // pointer should have the same type as the var it points to
+int *ip = i; // illegal, pointer should points to address not the val
+int *p = &i; // legal
+#+END_SRC
+** DONE Exercise 2.22
+Assuming ~p~ is a pointer to ~int~, explain the following code:
+#+BEGIN_SRC cpp
+if (p) // if pointer is not NULL
+if (*p) // if the value to which the pointer points is not zero
+#+END_SRC
+** DONE Exercise 2.23
+Given a pointer ~p~, can you determine whether ~p~ points to a valid object?
+If so, how? If not, why not?
+#+BEGIN_SRC cpp
+// determine if a pointer is valid
+if (p == NULL) // points to nothing or
+if (*p == 0) // points to zero
+if (*p) // points to anythig that is not zero
+#+END_SRC
+** DONE Exercise 2.24
+Why is the initialization of p legal but that of lp illegal?
+#+BEGIN_SRC cpp
+inti=42; void*p=&i; long*lp=&i;
+#+END_SRC
+#+BEGIN_QUOTE
+The type ~void*~ is a special pointer type that can hold the address of any object. Like any other pointer, a void* pointer holds an address, but the type of the object at that address is unknown:
+#+END_QUOTE
+* EXERCISES SECTION 2.3.3
+** DONE Exercise 2.25
+Determine the types and values of each of the following variables.
+#+BEGIN_SRC cpp
+int* ip, i, &r=i;
+// ip is a pointer to int, i an int, r a reference to i
+int i, *ip=0;
+// i is an int, ip is a pointer to 0
+int* ip, ip2;
+// ip is a pointer to in, ip2 is an int
+#+END_SRC
