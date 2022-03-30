@@ -66,8 +66,31 @@ variables of built-in type defined inside a function are *uninitialized*.
 
 The value of an uninitialized vari- able of built-in type is undefined.
 #+END_QUOTE
-** 2.2.2 ariable Declarations and Definitions
+** 2.2.2 Variable Declarations and Definitions
 C++ supports *separate compilation.*
 #+BEGIN_QUOTE
 Separate compilation lets us split our programs into several files, each of which can be compiled independently.
+#+END_QUOTE
+** 2.2.4 Scope of a Name
+*** Nested Scope
+#+BEGIN_QUOTE
+The global scope has no name. Hence, when the scope operator has an empty left-hand side, it is a request to fetch the name on the right-hand side from the global scope
+#+END_QUOTE
+* 2.3 Compound Types
+** 2.3.1 References
+*** A Reference Is an Alias
+*** Reference Definitions
+- refer/bound to existing object, rather than literal
+- must be initialized
+** 2.3.2 Pointers
+When defining pointers on the same line, "The * must be repeated for each pointer variable."
+*** Taking the Address of an Object
+*** Null Pointers
+Modern C++ programs generally should avoid using ~NULL~ and use ~nullptr~ instead.
+* 2.4 ~const~ Qualifier
+#+BEGIN_QUOTE
+Because we can’t change the value of a const object after we create it, it must be
+initialized.
+
+To define a single instance of a ~const~ variable, we use the keyword ~extern~ on both its definition and declaration(s):
 #+END_QUOTE
