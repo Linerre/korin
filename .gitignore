@@ -1,5 +1,8 @@
 target/
+.direnv/
+*.backup
 # ignore example code
+
 eg*
 *.out
 test.*
