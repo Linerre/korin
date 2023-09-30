@@ -1,3 +1,5 @@
+# Top-level flake for all (including the current) my projects
+# Other flakes should `follows` this one to share the buildInputs
 {
   # Optional
   description = "A messy envrionment that ONLY Nix can handle for my personal learning.";
@@ -21,8 +23,17 @@
         overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
       in
+        # Attr set to be outputed by this flake
         {
           devShells.default = pkgs.mkShell {
+
+            shellHook = ''
+              alias e="emacs -nw"
+              alias ll="ls -al"
+            '';
+
+            # Packages needed at runtime
+            # Consider them as global pkgs avail. in devenv's $PATH
             buildInputs = with pkgs; [
               # Rust
               (rust-bin.stable.latest.default.override {
@@ -45,8 +56,20 @@
               pkg-config
 
               # CPP
+
+              # Debugging
+              gdb
+              valgrind          # 3.21
             ];
           };
+
+
         }
     );
+
+  # Optional
+  # See `flake-format` section of nix flake in Nix Reference Manual
+  nixConfig = {
+    bash-prompt = "[λ] ";
+  };
 }
