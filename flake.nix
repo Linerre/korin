@@ -22,6 +22,14 @@
       let
         overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
+        # hkgs = pkgs.haskellPackages.ghcWithPackages (p: with p; [
+        #   hlint           # 3.5
+        #   hindent         # 6.0.0
+        #
+        #   # tools
+        #   cabal-install
+        #   pandoc
+        # ]);
       in
         # Attr set to be outputed by this flake
         {
@@ -42,14 +50,25 @@
               cargo
               rust-analyzer
 
-              # Haskell
-              # Avoid haskellPackages.foo_x_y_z as they may disppear (dropped), see:
+              # Haskell bin (executables)
+              # Avoid haskellPackages.fooXYZ as they may disppear (dropped), see:
               # https://nixos.org/manual/nixpkgs/unstable/#haskell-available-packages
-              haskellPackages.ghc     # 9.4.6 (LTS Stackage)
-              haskellPackages.ghcid   # 0.8.9
-              haskellPackages.hlint   # 3.5
-              haskellPackages.hindent # 6.0.0
+              # Let ghc know where to find these libs, see:
+              # #how-to-create-a-development-environment in hask4nix.readthedocs.io
+              # hkgs
+              (pkgs.haskellPackages.ghcWithPackages (p: with p; [
+                hlint           # 3.5
+                hindent         # 6.0.0
 
+                # tools
+                cabal-install
+                pandoc
+              ]))
+
+              haskellPackages.ghcid   # 0.8.9
+              # haskellPackages.ghc     # 9.4.6 (LTS Stackage)
+              haskellPackages.stack   # 2.11.1
+              haskellPackages.haskell-language-server # support only GHC version of this flake
               # Ocaml
 
               # C
