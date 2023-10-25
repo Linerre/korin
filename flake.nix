@@ -79,6 +79,17 @@
               # Debugging
               gdb
               valgrind          # 3.21
+
+              # Java and JVM langs such as clojure
+              jdk17_headless
+              clojure
+              clojure-lsp
+
+              # Auto tools
+              just
+
+              # JavaScript
+              nodejs_20
             ];
           };
 
