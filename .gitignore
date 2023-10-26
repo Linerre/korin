@@ -1,8 +1,12 @@
+# ignore directories
 target/
 .direnv/
 *.backup
+
 # ignore example code
 
+# ignore files
 eg*
 *.out
+*.java
 test.*

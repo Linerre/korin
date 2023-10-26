@@ -100,6 +100,6 @@
   # Optional
   # See `flake-format` section of nix flake in Nix Reference Manual
   nixConfig = {
-    bash-prompt = "[λ] ";
+    bash-prompt = "[\\[\\e[38;5;39m\\]\\w\\[\\e[0m\\] λ] ";
   };
 }
