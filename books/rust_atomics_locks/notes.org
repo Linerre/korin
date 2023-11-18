@@ -1,0 +1,44 @@
+#+TITLE: Rust Atomic and Locks
+#+AUTHOR: Mara Bos
+
+* Schedule
+| Chapter | Start Date |   Deadline | Status |
+|---------+------------+------------+--------|
+|       1 | 2023-11-17 | 2023-11-19 | DOING  |
+|       2 | 2023-11-20 | 2023-11-23 | TODO   |
+|       3 | 2023-11-20 | 2023-11-23 | TODO   |
+|       4 | 2023-11-20 | 2023-11-23 | TODO   |
+|       5 | 2023-11-20 | 2023-11-23 | TODO   |
+|       6 | 2023-11-20 | 2023-11-23 | TODO   |
+|       7 | 2023-11-20 | 2023-11-23 | TODO   |
+|       8 | 2023-11-20 | 2023-11-23 | TODO   |
+|       9 | 2023-11-20 | 2023-11-23 | TODO   |
+|      10 | 2023-11-20 | 2023-11-23 | TODO   |
+|---------+------------+------------+--------|
+
+* Environment
+#+BEGIN_SRC bash
+rustc --version
+# 1.73.0 (cc66ad468 2023-10-03)
+
+emacs --version
+# GNU Emacs 29.0.90
+#+END_SRC
+
+
+* Supplementary
+[[file:~/projects/korin/books/rust_in_action/notes.org][Rust in Action]]
+
+* Chapter 1 Basics of Rust Concurrency
+** Threads in Rust
+In [[https://github.com/m-ou-se/rust-atomics-and-locks/blob/main/examples/ch1-01-hello.rs][Example 01]], when the main fn (in main thread) returns (ends its execution), it shuts down the program regardless of whether there is any other spawned and running thread.
+#+BEGIN_SRC rust
+// ...
+fn main() {
+    thread::spawn(f);           // may or may not finish
+    thread::spawn(f);
+
+    println!("Hello from the main thread.");
+}
+// ...
+#+END_SRC
