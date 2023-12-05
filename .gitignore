@@ -2,7 +2,7 @@
 target/
 slides/
 .direnv/
-
+auto/
 
 # ignore example code
 
@@ -12,4 +12,6 @@ eg*
 *.backup
 *.out
 *.java
+*.log
+*.aux
 test.*
