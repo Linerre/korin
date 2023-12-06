@@ -29,9 +29,11 @@ emacs --version
 * Supplementary
 [[file:~/projects/korin/books/rust_in_action/notes.org][Rust in Action]]
 
+
 * Chapter 1 Basics of Rust Concurrency
 ** Threads in Rust
 In [[https://github.com/m-ou-se/rust-atomics-and-locks/blob/main/examples/ch1-01-hello.rs][Example 01]], when the main fn (in main thread) returns (ends its execution), it shuts down the program regardless of whether there is any other spawned and running thread.
+
 #+BEGIN_SRC rust
 // ...
 fn main() {
@@ -41,4 +43,30 @@ fn main() {
     println!("Hello from the main thread.");
 }
 // ...
+#+END_SRC
+
+** Scoped threads
+~std::thread::scope()~, according to Rust's doc, will "create a scope for spawning scoped thread".  I think this means the scope will be running in the environment of main thread, which is the 1st argument passed to the ~scope()~ fn.
+
+
+** ~Cell~ and ~RefCell~
+Useful in a single thread but pretty useless/limited in multi-thread.
+
+** ~Mutex~
+Implicitly dropping ~MutexGuard~ is convenient but can lead to a common pitfall
+#+BEGIN_SRC rust
+// Suppose we have a Mutex<Vec<i32>>
+// This line of code takes the Vec and push one item to it and unlock the Mutex
+list.lock().unwrap().push(1);
+// `MutexGuard` or any temporaries produced will be dropped after `;` which is
+// the end of the statement
+
+if let Some(item) = list.lock().unwrap().pop() {// but we want to unlock it right before the block
+    process_item(item);
+} // MutexGuard will be dropped (unlocked) only at here!
+
+// As boolean value in conditionals does not borrow any data
+if list.lock().unwrap().pop() == Some(1) {// unlocked before the block
+    do_something();
+}
 #+END_SRC
