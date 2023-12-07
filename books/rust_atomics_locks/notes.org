@@ -6,8 +6,8 @@
 |---------+------------+------------+--------|
 |       1 | 2023-11-17 | 2023-11-20 | DONE   |
 |       2 | 2023-11-21 | 2023-11-24 | DONE   |
-|       3 | 2023-11-25 | 2023-11-28 | DOING  |
-|       4 | 2023-11-29 | 2023-12-02 | TODO   |
+|       3 | 2023-11-25 | 2023-11-28 | DONE   |
+|       4 | 2023-11-29 | 2023-12-02 | DOING  |
 |       5 | 2023-12-03 | 2023-12-06 | TODO   |
 |       6 | 2023-12-07 | 2023-12-10 | TODO   |
 |       7 | 2023-12-11 | 2023-12-14 | TODO   |
@@ -47,6 +47,7 @@ fn main() {
 
 Throughout the book, =mian= thread is sometimes referred to as =foreground= thread.  Spawned threads, =background= threads.
 
+
 ** Scoped threads
 ~std::thread::scope()~, according to Rust's doc, will "create a scope for spawning scoped thread".  I think this means the scope will be running in the environment of main thread, which is the 1st argument passed to the ~scope()~ fn.
 
@@ -74,6 +75,8 @@ if list.lock().unwrap().pop() == Some(1) {// unlocked before the block
     do_something();
 }
 #+END_SRC
+Putting a thread to sleep means the thread will not consume any more resources.
+
 
 
 * Chapter 02 Atomics
@@ -101,4 +104,103 @@ Read the doc of Rust ~std::sync::Once~ and ~std::sync::OnceLock~
 ** Fetch-and-Modify Operations
 #+BEGIN_QUOTE
 An important thing to keep in mind is that fetch_add and fetch_sub implement /wrapping/ behavior for overflows. Incrementing a value past the maximum representable value will wrap around and result in the minimum representable value.
+#+END_QUOTE
+
+
+* Chapter 03 Memory Ordering
+Memory ordering is about how data is stored and accessed in memory.  By "how" I mean the order in which data is written (loaded) to memory and read (released) from it.
+
+On the other hand, compiler and processor often "optimizes" my program by *re-ordering* operations.  Sometimes they are right and much smarter than me.  Sometimes, however, I need to tell them exactly "how".  This chapter is all about /how/ I can tell the compiler/processor about the order of my code.
+
+** Reordering and Optimization
+~Relaxed~ is mostly discussed
+
+#+BEGIN_QUOTE
+The logic for verifying that a specific reordering or other optimization won’t affect the behavior of your program does not take other threads into account.
+#+END_QUOTE
+
+
+#+BEGIN_QUOTE
+Rust’s memory model, which is /mostly copied from C++/, *doesn’t match any existing processor architecture*, but instead is an abstract model with a strict set of rules that attempt to represent the greatest common denominator of all current and future architectures, while also giving the compiler enough freedom to make useful assumptions while analyzing and optimizing programs.
+#+END_QUOTE
+
+** Happens-before relation
+#+BEGIN_EXAMPLE
+// statements ensured to happen before spawn()
+statement 1---------
+statement 2         |  Happens-before relationship
+thread::spawn()-----
+
+// join() ensured to happen before statements
+thread.join()-------
+statement 1         |  Happens-before relationship
+statement 2---------
+#+END_EXAMPLE
+
+
+** Release and Acquire Ordering
+#+BEGIN_QUOTE
+A happens-before relationship is formed when an acquire-load operation observes the result of a release-store operation. In this case, the store and everything before it, happened before the load and everything after it.
+#+END_QUOTE
+
+#+BEGIN_EXAMPLE
+statement 1---------|
+statement 2         |
+release   ----------|  Happens-before relationship
+acquire   ----------|
+statement 3         |
+statement 4---------
+#+END_EXAMPLE
+See: [[https://marabos.nl/atomics/memory-ordering.html#happens-before-diagram-release-acquire][Figure 3-3]]
+
+
+
+#+BEGIN_QUOTE
+one thread releases data by atomically storing some value to an atomic variable, and another thread acquires it by atomically loading that value. This is exactly what happens when we unlock (release) a mutex and subsequently lock (acquire) it on another thread.
+#+END_QUOTE
+
+
+*** pointer
+~&*ptr~ in Rust means a *reference* to the data a pointer ~ptr~ points to
+
+
+** Consume Ordering
+#+BEGIN_QUOTE
+It’s possible that a workable definition and implementation of consume ordering might be found in the future. Until that time arrives, however, Rust does not expose ~Ordering::Consume~.
+#+END_QUOTE
+
+** Sequentially Consistent Ordering
+Stronger but less frequently used.
+#+BEGIN_QUOTE
+While it might seem like the easiest memory ordering to reason about, SeqCst ordering is almost never necessary in practice. In nearly all cases, regular acquire and release ordering suffice.
+#+END_QUOTE
+
+
+** Fences
+A good read from [[https://doc.rust-lang.org/std/sync/atomic/fn.fence.html][~std::sync::atomic::fence~]]
+
+A "fence", like the word's meaning, works in a way that it separate what it fences from others in memory ordering, thus:
+#+BEGIN_EXAMPLE
+fence(Release) ---- |
+x.store(1, Relaxed) |
+                    |
+                    | if x(t2) loads stuff from x(t1), Release happens before Acquire
+                    |
+x.load(1, Relaxed)  |
+fence(Acqure) ------
+#+END_EXAMPLE
+
+~fence(Acquire)~ alone seems to be used more often:
+#+BEGIN_SRC rust
+// ....
+fence(Acquire);
+// do stuff directly with atomic variables here
+#+END_SRC
+
+
+** Misc
+#+BEGIN_QUOTE
+...the memory model doesn’t say anything about timing at all. It only defines in which order certain things happen; not how long you might have to wait for them.
+
+While ~SeqCst~ can stand in for ~Acquire~ or ~Release~, it is not a way to somehow create an acquire-store or release-load. Those remain /nonexistent/. Release only applies to store operations, and acquire only to load operations.
 #+END_QUOTE
