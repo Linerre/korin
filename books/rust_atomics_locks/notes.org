@@ -4,16 +4,16 @@
 * Schedule
 | Chapter | Start Date |   Deadline | Status |
 |---------+------------+------------+--------|
-|       1 | 2023-11-17 | 2023-11-19 | DOING  |
-|       2 | 2023-11-20 | 2023-11-23 | TODO   |
-|       3 | 2023-11-20 | 2023-11-23 | TODO   |
-|       4 | 2023-11-20 | 2023-11-23 | TODO   |
-|       5 | 2023-11-20 | 2023-11-23 | TODO   |
-|       6 | 2023-11-20 | 2023-11-23 | TODO   |
-|       7 | 2023-11-20 | 2023-11-23 | TODO   |
-|       8 | 2023-11-20 | 2023-11-23 | TODO   |
-|       9 | 2023-11-20 | 2023-11-23 | TODO   |
-|      10 | 2023-11-20 | 2023-11-23 | TODO   |
+|       1 | 2023-11-17 | 2023-11-20 | DONE   |
+|       2 | 2023-11-21 | 2023-11-24 | DONE   |
+|       3 | 2023-11-25 | 2023-11-28 | DOING  |
+|       4 | 2023-11-29 | 2023-12-02 | TODO   |
+|       5 | 2023-12-03 | 2023-12-06 | TODO   |
+|       6 | 2023-12-07 | 2023-12-10 | TODO   |
+|       7 | 2023-12-11 | 2023-12-14 | TODO   |
+|       8 | 2023-12-15 | 2023-12-18 | TODO   |
+|       9 | 2023-12-19 | 2023-12-22 | TODO   |
+|      10 | 2023-12-23 | 2023-12-23 | TODO   |
 |---------+------------+------------+--------|
 
 * Environment
@@ -30,7 +30,7 @@ emacs --version
 [[file:~/projects/korin/books/rust_in_action/notes.org][Rust in Action]]
 
 
-* Chapter 1 Basics of Rust Concurrency
+* Chapter 01 Basics of Rust Concurrency
 ** Threads in Rust
 In [[https://github.com/m-ou-se/rust-atomics-and-locks/blob/main/examples/ch1-01-hello.rs][Example 01]], when the main fn (in main thread) returns (ends its execution), it shuts down the program regardless of whether there is any other spawned and running thread.
 
@@ -45,12 +45,16 @@ fn main() {
 // ...
 #+END_SRC
 
+Throughout the book, =mian= thread is sometimes referred to as =foreground= thread.  Spawned threads, =background= threads.
+
 ** Scoped threads
 ~std::thread::scope()~, according to Rust's doc, will "create a scope for spawning scoped thread".  I think this means the scope will be running in the environment of main thread, which is the 1st argument passed to the ~scope()~ fn.
 
 
 ** ~Cell~ and ~RefCell~
 Useful in a single thread but pretty useless/limited in multi-thread.
+
+
 
 ** ~Mutex~
 Implicitly dropping ~MutexGuard~ is convenient but can lead to a common pitfall
@@ -70,3 +74,31 @@ if list.lock().unwrap().pop() == Some(1) {// unlocked before the block
     do_something();
 }
 #+END_SRC
+
+
+* Chapter 02 Atomics
+Atomic: indivisible
+
+#+BEGIN_QUOTE
+it is either fully completed, or it didn’t happen yet.
+#+END_QUOTE
+
+** Atomic Load and Store Operations
+*** Lazy Initialization *race* vs *data race*
+When multiple threads try to access (and probably modify) the same data, it's hard to tell which thread does what first. Thus such data race leads to /undefined behavior/.
+#+BEGIN_QUOTE
+... data race, which is undefined behavior and impossible in Rust without using unsafe ...
+#+END_QUOTE
+
+While multiple threads may try to do the same thing at the same time.  For example. initializing a variable or reading a value. This is race and there still will be a winner.
+#+BEGIN_QUOTE
+Since we expect x to be constant, it doesn’t matter who wins the race, as the result will be the same regardless.
+#+END_QUOTE
+
+Read the doc of Rust ~std::sync::Once~ and ~std::sync::OnceLock~
+
+
+** Fetch-and-Modify Operations
+#+BEGIN_QUOTE
+An important thing to keep in mind is that fetch_add and fetch_sub implement /wrapping/ behavior for overflows. Incrementing a value past the maximum representable value will wrap around and result in the minimum representable value.
+#+END_QUOTE
