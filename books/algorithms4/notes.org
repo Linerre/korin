@@ -1,0 +1,166 @@
+#+TITLE: Notes on Reading Algorithms 4th ed
+
+* Book Information and resources
+** Book
+** Learning resources
+
+* 1 Fundamentals
+** 1.1 Basic Programming Model
+*** Aliasing
+Java arrays do not support value copying in assignments, thus the result is *aliasing*.
+
+#+BEGIN_SRC java
+int[] a = new int[N];
+...
+a[i] = 1234;
+...
+int[] b = a;
+...
+b[i] = 5678; // a[i] is now 5678.
+#+END_SRC
+
+*** Two-dimensional arrays
+In ~arr[i][j]~, ~i~ refers to *row* and ~j~ to *col*.  In situations where ~x~ and ~y~ are used instead, ~x~ may refer to col and ~y~ to row, which is a bit counter-intuitive.  In such cases, I would prefer ~col~ (or ~c~) and ~row~ (or ~r~).
+
+*** Array length
+In Java, ~length~ property of an array is pretty cheap so just /use/ it in a ~for~ loop.
+
+#+BEGIN_SRC java
+int[] myArray = new int[10];
+
+for (int i = 0; i != myArray.length; i++) {
+    // I mention this because in C, the sizeof() may calculate an array length
+    // each time, which is unnecessary.
+}
+
+// But it is good to store the array length in a const notation and use it later
+
+// compute the average of the array values
+int N = a.length;
+double sum = 0.0;
+for (int i = 0; i != N; i++)
+sum += a[i];
+double average = sum / N;
+
+// copy to another array
+int N = a.length;
+double[] b = new double[N];
+for (int i = 0; i != N; i++)
+b[i] = a[i];
+
+#+END_SRC
+
+*** Pass-by-value
+Arguments of Java functions are passed by value except that arrays are *aliased* (see [[* Aliasing]]).
+
+*** Thumb of rules for recursion
+1. The recursion has a /base case/
+2. Recursive calls must address subproblems that are /smaller/ in some sense
+3. Recursive calls should /not/ address subproblems that /overlap/
+
+*** Library of static methods
+A ~<ClassName>.java~ file indicates a library of static methods that together address a specific computational task, as shown below:
+
+#+BEGIN_SRC java
+/**
+ ,* MyClass.java file
+ ,*/
+
+public class MyClass {
+    public static void method1() {
+        // ...
+    }
+
+    public static int method2() {
+        // ...
+    }
+
+    public static void main(String[] args)
+        // Use the methods defined above
+        // to do the computation
+        // The `main` method also serves as a unit test
+        // for this library
+}
+#+END_SRC
+
+
+** 1.2 Data Abstraction
+The book intentionally focuses on /interface inheritance/ instead of class inheritance.
+#+BEGIN_QUOTE
+The use of subclassing is controversial among systems and applications programmers (its advantages over interface inheritance are debatable), and we avoid it in this book because it generally works against encapsulation.
+#+END_QUOTE
+
+*** Equality (pp102)
+Equivalence relation
+
+*** Exceptions and Assertions (pp107)
+#+BEGIN_QUOTE
+it is a slip- pery slope from complaining about features in a programming language to becoming a programming-language designer. If you do not plan to do so, your best strategy is to use widely available languages. Most systems have extensive libraries that you certainly should use when appropriate, but you often can simplify your client code and protect yourself by building abstractions that can easily transport to other languages.  Your main goal is to develop data types so that most of your work is done at a level of abstraction that is appropriate to the problem at hand.
+#+END_QUOTE
+
+
+** 1.3 Bags, Queues, and Stacks
+*** Autoboxing
+Java’s wrapper types are reference types that correspond to primitive types:
+#+BEGIN_EXAMPLE
+Boolean, Byte, Character, Double, Float, Integer, Long, Short   <-- wrapper types
+boolean, byte, char,      double, float, int,     long, short   <-- primitive types
+#+END_EXAMPLE
+
+#+BEGIN_SRC java
+// To use int's static method, use the wrapper types
+Integer.<some_method>();
+
+Stack<Integer> stack = new Stack<Integer>();
+stack.push(17);                 // auto-boxing (int -> Integer)
+int i = stack.pop();            // auto-unboxing (Integer -> int)
+
+#+END_SRC
+
+*** Bag, Queue, Stack
+ | ADT   | Ordered | Sized | Bidi | Usage            |
+ |-------+---------+-------+------+------------------|
+ | Bag   | N       | Y     | N    | simply foreach() |
+ | Queue | Y       | Y     | FIFO | + preserve order |
+ | Stack | Y       | Y     | LIFO | + reverse order  |
+
+*** Dijkstra’s Two-Stack Algorithm for Expression Evaluation (pp129-131)
+
+*** Generics (pp134)
+#+BEGIN_QUOTE
+For historical and technical reasons beyond our scope, generic array creation is disallowed in Java ...
+#+END_QUOTE
+
+#+BEGIN_SRC java
+// This is not allowed
+a = new item[cap]; // nor
+a = new T[cap];
+
+// Intead, have to do this:
+a = (Item[]) new Object[cap]; // or
+a = (T) new Object[cap]; // safely ignore the warning issued by java compiler
+#+END_SRC
+
+*** Stack
+A common trick in implementing stack is to set the pop-index at -1 at the very first.  Also use the big end of an array (N-1) for popping, because this makes it easier to dynamically resizing the array by copying values from the old array to the new one.
+
+*** Loitering (pp137)
+#+BEGIN_QUOTE
+This condition (holding a reference to an item that is no longer needed) is known as /loitering/.
+#+END_QUOTE
+
+*** Iteration (pp139)
+1. ~implements Iterable<T>~
+2. ~implements Iterator<T>~
+
+* 2 Sorting
+
+
+
+
+
+* 3 Searching
+
+* 4 Graphs
+
+* 5 Strings
