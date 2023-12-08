@@ -7,35 +7,20 @@ use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::AtomicBool;
 use std::sync::atomic::Ordering::Relaxed;
 
-pub mod ch01_mutex;
+pub mod spinlock;
+
+use spinlock::SpinLock;
 
 fn main() {
-    let num_done = AtomicUsize::new(0);
-
-    let main_thread = thread::current();
-
+    let x = SpinLock::new(Vec::new());
     thread::scope(|s| {
-        // A background thread to process all 100 items.
+        s.spawn(|| x.lock().push(1));
         s.spawn(|| {
-            for i in 0..100 {
-                process_item(i); // Assuming this takes some time.
-                num_done.store(i + 1, Relaxed);
-                main_thread.unpark(); // Wake up the main thread.
-            }
+            let mut g = x.lock();
+            g.push(2);
+            g.push(2);
         });
-
-        // The main thread shows status updates.
-        loop {
-            let n = num_done.load(Relaxed);
-            if n == 100 { break; }
-            println!("Working.. {n}/100 done");
-            thread::park_timeout(Duration::from_secs(1));
-        }
     });
-
-    println!("Done!");
-}
-
-fn process_item(i: usize) {
-    for _x in i..i*10 {}
+    let g = x.lock();
+    assert!(g.as_slice() == [1, 2, 2] || g.as_slice() == [2, 2, 1]);
 }

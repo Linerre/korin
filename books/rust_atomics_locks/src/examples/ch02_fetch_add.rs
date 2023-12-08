@@ -13,7 +13,12 @@ fn fetch_via_4threads() {
         for t in 0..4 {
             s.spawn(move || {// whatever vars appear in this scope moved into it
                 for i in 0..25 {
-                    process_item(t * 25 + i); // Assuming this takes some time.
+                    // Assuming this takes some time.  Indeed if it doesn't,
+                    // the 4 threads finish their jobs almost instantly, far less
+                    // than within 1sec, resulting in my seeing the final 'Done!'
+                    // also instantly
+
+                    process_item(t * 25 + i);
                     num_done.fetch_add(1, Relaxed);
                 }
             });

@@ -7,14 +7,15 @@
 |       1 | 2023-11-17 | 2023-11-20 | DONE   |
 |       2 | 2023-11-21 | 2023-11-24 | DONE   |
 |       3 | 2023-11-25 | 2023-11-28 | DONE   |
-|       4 | 2023-11-29 | 2023-12-02 | DOING  |
-|       5 | 2023-12-03 | 2023-12-06 | TODO   |
+|       4 | 2023-11-29 | 2023-12-02 | DONE   |
+|       5 | 2023-12-03 | 2023-12-06 | DOING  |
 |       6 | 2023-12-07 | 2023-12-10 | TODO   |
 |       7 | 2023-12-11 | 2023-12-14 | TODO   |
 |       8 | 2023-12-15 | 2023-12-18 | TODO   |
 |       9 | 2023-12-19 | 2023-12-22 | TODO   |
 |      10 | 2023-12-23 | 2023-12-23 | TODO   |
 |---------+------------+------------+--------|
+
 
 * Environment
 #+BEGIN_SRC bash
@@ -154,7 +155,6 @@ statement 4---------
 See: [[https://marabos.nl/atomics/memory-ordering.html#happens-before-diagram-release-acquire][Figure 3-3]]
 
 
-
 #+BEGIN_QUOTE
 one thread releases data by atomically storing some value to an atomic variable, and another thread acquires it by atomically loading that value. This is exactly what happens when we unlock (release) a mutex and subsequently lock (acquire) it on another thread.
 #+END_QUOTE
@@ -163,6 +163,9 @@ one thread releases data by atomically storing some value to an atomic variable,
 *** pointer
 ~&*ptr~ in Rust means a *reference* to the data a pointer ~ptr~ points to
 
+
+*** Further readings
+[[https://preshing.com/20120913/acquire-and-release-semantics/][Acquire and Release Semantics]] talks about similar memory sharing in C++11.  "Acquire and Release" is one crucial way for lock-free multi-threads programming.
 
 ** Consume Ordering
 #+BEGIN_QUOTE
