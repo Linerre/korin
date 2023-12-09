@@ -70,6 +70,13 @@
               haskellPackages.stack   # 2.11.1
               haskellPackages.haskell-language-server # support only GHC version of this flake
               # Ocaml
+              ocamlPackages.ocaml
+              ocamlPackages.dune_3
+              ocamlPackages.findlib
+              ocamlPackages.utop
+              ocamlPackages.odoc
+              ocamlPackages.ocaml-lsp
+              ocamlformat
 
               # C
               pkg-config
@@ -85,11 +92,17 @@
               clojure
               clojure-lsp
 
-              # Auto tools
-              just
+              # Scheme
+              guile
+              chicken
+              chickenPackages_5.chickenEggs.tree
 
               # JavaScript
               nodejs_20
+
+              # Auto tools
+              just
+
             ];
           };
 
