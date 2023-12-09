@@ -2,19 +2,19 @@
 #+AUTHOR: Mara Bos
 
 * Schedule
-| Chapter | Start Date |   Deadline | Status |
-|---------+------------+------------+--------|
-|       1 | 2023-11-17 | 2023-11-20 | DONE   |
-|       2 | 2023-11-21 | 2023-11-24 | DONE   |
-|       3 | 2023-11-25 | 2023-11-28 | DONE   |
-|       4 | 2023-11-29 | 2023-12-02 | DONE   |
-|       5 | 2023-12-03 | 2023-12-06 | DOING  |
-|       6 | 2023-12-07 | 2023-12-10 | TODO   |
-|       7 | 2023-12-11 | 2023-12-14 | TODO   |
-|       8 | 2023-12-15 | 2023-12-18 | TODO   |
-|       9 | 2023-12-19 | 2023-12-22 | TODO   |
-|      10 | 2023-12-23 | 2023-12-23 | TODO   |
-|---------+------------+------------+--------|
+| Chapter | Topic             | Start Date |   Deadline | Status |
+|---------+-------------------+------------+------------+--------|
+|       1 | Basic Concurrency | 2023-11-17 | 2023-11-20 | DONE   |
+|       2 | Atomic operations | 2023-11-21 | 2023-11-24 | DONE   |
+|       3 | Memory Ordering   | 2023-11-25 | 2023-11-28 | DONE   |
+|       4 | Spin Lock         | 2023-11-29 | 2023-12-02 | DONE   |
+|       5 | One-shot Channels | 2023-12-03 | 2023-12-06 | DONE   |
+|       6 | Implement Arc     | 2023-12-07 | 2023-12-10 | DOING  |
+|       7 | Processors        | 2023-12-11 | 2023-12-14 | TODO   |
+|       8 | OS primitives     | 2023-12-15 | 2023-12-18 | TODO   |
+|       9 | Build Locks       | 2023-12-19 | 2023-12-22 | TODO   |
+|      10 | Ideas/Inspiration | 2023-12-23 | 2023-12-23 | TODO   |
+|---------+-------------------+------------+------------+--------|
 
 
 * Environment
@@ -125,6 +125,7 @@ The logic for verifying that a specific reordering or other optimization won’t
 Rust’s memory model, which is /mostly copied from C++/, *doesn’t match any existing processor architecture*, but instead is an abstract model with a strict set of rules that attempt to represent the greatest common denominator of all current and future architectures, while also giving the compiler enough freedom to make useful assumptions while analyzing and optimizing programs.
 #+END_QUOTE
 
+
 ** Happens-before relation
 #+BEGIN_EXAMPLE
 // statements ensured to happen before spawn()
@@ -167,10 +168,12 @@ one thread releases data by atomically storing some value to an atomic variable,
 *** Further readings
 [[https://preshing.com/20120913/acquire-and-release-semantics/][Acquire and Release Semantics]] talks about similar memory sharing in C++11.  "Acquire and Release" is one crucial way for lock-free multi-threads programming.
 
+
 ** Consume Ordering
 #+BEGIN_QUOTE
 It’s possible that a workable definition and implementation of consume ordering might be found in the future. Until that time arrives, however, Rust does not expose ~Ordering::Consume~.
 #+END_QUOTE
+
 
 ** Sequentially Consistent Ordering
 Stronger but less frequently used.
@@ -201,9 +204,66 @@ fence(Acquire);
 #+END_SRC
 
 
-** Misc
+* Misc
 #+BEGIN_QUOTE
 ...the memory model doesn’t say anything about timing at all. It only defines in which order certain things happen; not how long you might have to wait for them.
 
 While ~SeqCst~ can stand in for ~Acquire~ or ~Release~, it is not a way to somehow create an acquire-store or release-load. Those remain /nonexistent/. Release only applies to store operations, and acquire only to load operations.
+#+END_QUOTE
+
+
+#+BEGIN_SRC rust
+// compare current state with `EMPTY`, if it is `EMPTY`,
+// exchange `EMPTY` with `WRITING` (new state)
+if self.state.compare_exchange(
+    EMPTY, WRITING, Relaxed, Relaxed
+).is_err() {
+    panic!("can't send more than one message!");
+}
+
+// compare current state with `READY`, if it is `READY`,
+// exchange `READY` with `READING` (new state)
+if self.state.compare_exchange(
+    READY, READING, Acquire, Relaxed
+).is_err() {
+    panic!("no message available!");
+}
+#+END_SRC
+
+When a fn takes a type (not a reference to the type) as its argument, the fn assumes the type and thus can be called only once.  See the channels design in Chapter 5.
+
+** Technique to read asynchronous/multithreading code
+#+BEGIN_SRC rust
+fn main() {
+    thread::scope(|s| {
+        let (sender, receiver) = channel(); // 1
+        let t = thread::current();          // 2
+        s.spawn(move || {                   // 3-a
+            sender.send("hello world!");    // 5
+            t.unpark();                     // 6
+        });
+        while !receiver.is_ready() {        // 3-b
+            thread::park();                 // 4
+        }
+        assert_eq!(receiver.receive(), "hello world!"); // 7
+    });
+}
+
+/*
+ ,* 3-a and 3-b happens at almost the same time.  In other words, thread `t`, the
+ ,* current thread, the main thread or the foreground thread, will NOT wait for 3-a
+ ,* to finish, but instead directly jumps to 3-b to keep the execution.
+ ,* Thus, a better way to read the above code is to follow a specific thread.  In
+ ,* case, follow the main thread: 1->2->3-b->4: if msg not read, I sleep
+ ,* then, follow the background thread: 3-a->5->6: send msg and kick up the main t
+ ,*/
+
+#+END_SRC
+
+
+** Quotes
+#+BEGIN_QUOTE
+Having to make trade-offs between safety, convenience, flexibility, simplicity, and performance is unfortunate, but sometimes unavoidable. Rust generally strives to make it easy to excel at all of these, but sometimes makes you trade a bit of one to maximize another.
+
+Chapter 05 Channels: Safety Through Types
 #+END_QUOTE
