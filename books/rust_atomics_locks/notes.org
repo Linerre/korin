@@ -2,21 +2,22 @@
 #+AUTHOR: Mara Bos
 
 * Schedule
-| Chapter | Topic             | Start Date |   Deadline | Status |
-|---------+-------------------+------------+------------+--------|
-|       1 | Basic Concurrency | 2023-11-17 | 2023-11-20 | DONE   |
-|       2 | Atomic operations | 2023-11-21 | 2023-11-24 | DONE   |
-|       3 | Memory Ordering   | 2023-11-25 | 2023-11-28 | DONE   |
-|       4 | Spin Lock         | 2023-11-29 | 2023-12-02 | DONE   |
-|       5 | One-shot Channels | 2023-12-03 | 2023-12-06 | DONE   |
-|       6 | Implement Arc     | 2023-12-07 | 2023-12-10 | DOING  |
-|       7 | Processors        | 2023-12-11 | 2023-12-14 | TODO   |
-|       8 | OS primitives     | 2023-12-15 | 2023-12-18 | TODO   |
-|       9 | Build Locks       | 2023-12-19 | 2023-12-22 | TODO   |
-|      10 | Ideas/Inspiration | 2023-12-23 | 2023-12-23 | TODO   |
-|---------+-------------------+------------+------------+--------|
+| Chapter | Topic             | Start Date |   Deadline | Status    |
+|---------+-------------------+------------+------------+-----------|
+|       1 | Basic Concurrency | 2023-11-17 | 2023-11-20 | DONE      |
+|       2 | Atomic operations | 2023-11-21 | 2023-11-24 | DONE      |
+|       3 | Memory Ordering   | 2023-11-25 | 2023-11-28 | DONE      |
+|       4 | Spin Lock         | 2023-11-29 | 2023-12-02 | DONE      |
+|       5 | One-shot Channels | 2023-12-03 | 2023-12-06 | DONE      |
+|       6 | Implement Arc     | 2023-12-07 | 2023-12-10 | Half DONE |
+|       7 | Processors        | 2023-12-11 | 2023-12-14 | DOING     |
+|       8 | OS primitives     | 2023-12-15 | 2023-12-18 | TODO      |
+|       9 | Build Locks       | 2023-12-19 | 2023-12-22 | TODO      |
+|      10 | Ideas/Inspiration | 2023-12-23 | 2023-12-23 | TODO      |
+|---------+-------------------+------------+------------+-----------|
 
 
+Once having learned some basic operating systems, then resume from chapter 6.
 * Environment
 #+BEGIN_SRC bash
 rustc --version
@@ -82,10 +83,22 @@ Putting a thread to sleep means the thread will not consume any more resources.
 
 * Chapter 02 Atomics
 Atomic: indivisible
-
 #+BEGIN_QUOTE
 it is either fully completed, or it didn’t happen yet.
 #+END_QUOTE
+Another way to think about this is "one at a time":
+#+BEGIN_QUOTE
+Another way to think of an atomic operation is that no observer of an atomic operation can "see" the operation as in-progress. You can observe the operation as not yet started or as completed, but never in between.
+
+For example, when accessing or mutating a property is atomic, it means that only one read or write operation can be performed at a time. If you have a program that reads a property atomically, this means that the property cannot change during this read operation.
+#+END_QUOTE
+from:[[https://www.donnywals.com/what-does-atomic-mean-in-programming/][What does “atomic” mean in programming?]]
+
+#+BEGIN_QUOTE
+Atomicity is usually achieved via "mutual exclusion". That is, there are areas of code that only one thread is allowed to run at a time. If a second thread tries, it has to wait until the first thread is done.
+#+END_QUOTE
+from:[[https://www.reddit.com/r/learnprogramming/comments/58wz36/c_what_does_atomic_mean/][[C++] What does "atomic" mean?]]
+
 
 ** Atomic Load and Store Operations
 *** Lazy Initialization *race* vs *data race*
@@ -114,7 +127,7 @@ Memory ordering is about how data is stored and accessed in memory.  By "how" I 
 On the other hand, compiler and processor often "optimizes" my program by *re-ordering* operations.  Sometimes they are right and much smarter than me.  Sometimes, however, I need to tell them exactly "how".  This chapter is all about /how/ I can tell the compiler/processor about the order of my code.
 
 ** Reordering and Optimization
-~Relaxed~ is mostly discussed
+~Relaxed~ is mostly discussed in this section.  It indicates non-strict memory ordering.
 
 #+BEGIN_QUOTE
 The logic for verifying that a specific reordering or other optimization won’t affect the behavior of your program does not take other threads into account.
@@ -203,6 +216,9 @@ fence(Acquire);
 // do stuff directly with atomic variables here
 #+END_SRC
 
+
+* Chapter 06 Implementing Our Own Arc
+Need to re-read this chapter.
 
 * Misc
 #+BEGIN_QUOTE
