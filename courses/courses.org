@@ -1,0 +1,54 @@
+#+TITLE: CS Courses worth knowing about
+
+* About
+The famous [[https://csdiy.wiki/en/][csdiy]] project is already a comprehensive community collective effort.  This doc adds to it the courses I come across online and feel interesting.
+
+No need to go through each course from start to finish.  Just learn the parts most relevant to building up my knowledge base.  It's almost always necessary to do some labs and assignments though.
+
+
+* Math
+** CS154: Introduction to Automata and Complexity Theory
+- university: Stanford
+- site: http://www.stanford.edu/class/cs154
+- textbook: Introduction to Automata Theory, Languages, and Computation by Hopcroft, Ullman and Motwani
+- readings: [[http://infolab.stanford.edu/~ullman/focs.html][Foundations of Computer Science]]
+- slides: http://infolab.stanford.edu/~ullman/ialc/jdu-slides.html
+- notes: http://infolab.stanford.edu/~ullman/ialc/spr10/spr10.html#LECTURE%20NOTES
+
+
+** CS103 Mathematical Foundations of Computing
+- university: Stanford
+- site: https://web.stanford.edu/class/cs103/
+
+
+The course site contains really a /lot/ of helpful information. For example:
+1. Guide to LaTeX (that's the way a CS student should write about math and code)
+2. Guide to proof.  The most useful info to me. (I was struggling with proof when studying a similar course at my university.)  What steps are for formal/informal proofs? Any conventions?  Any common techniques? All these are clearly explained in this course
+
+
+** Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares
+- university: Stanford
+- site: https://web.stanford.edu/~boyd/vmls/
+- textbook: /Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares/
+- slides: https://web.stanford.edu/~boyd/vmls/vmls-slides.pdf
+- videos: https://www.youtube.com/playlist?list=PLoROMvodv4rMz-WbFQtNUsUElIh2cPmN9
+
+* OS
+** CPSC 223 (Spring 2022) Notes on Data Structures and Programming Techniques (C and Linux)
+- university: Yale
+- site: https://cs.yale.edu/homes/aspnes/classes/223/notes.html
+
+
+** CSI 2131 File Management (winter 2005)
+- university: Ottawa
+- site: https://www.site.uottawa.ca/~lucia/courses/2131-05/
+
+
+A good course about operating files, IO, and file systems using C++.  Do the labs and assignments.
+
+
+* Books
+Some books come with their own sites, slides and videos.  These are:
+
+** Algorithms 4th
+site: https://algs4.cs.princeton.edu/lectures/
