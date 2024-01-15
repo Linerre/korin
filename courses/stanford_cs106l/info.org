@@ -1,0 +1,50 @@
+#+TITLE: Stanford CS106L
+
+* Info
+A good course for learning intermediate C++ in my opinion.  Indeed, many CS courses of Stanford use C++.
+
+- site: https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/index.html
+- Reader: https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/full_course_reader.pdf
+  The chapter 8 on C string is missing?
+
+
+The ~playground~ directory contains code snippet that I'd like to try out when reading the book.
+
+
+** Schedule
+| Lec | Topic                                          |       Date |
+|-----+------------------------------------------------+------------|
+|   1 | Welcome                                        | 2024-01-15 |
+|   2 | Types and Structs                              | 2024-01-15 |
+|   3 | Initialization and References                  | 2024-01-15 |
+|   4 | Streams                                        | 2024-01-15 |
+|   5 | Containers                                     | 2024-01-16 |
+|   6 | Iterators and Pointers                         |            |
+|   7 | Classes                                        |            |
+|   8 | Template Classes and Const Correctness         |            |
+|   9 | Template Functions                             |            |
+|  10 | Functions and Lambdas                          |            |
+|  11 | Operators                                      |            |
+|  12 | Special Member Functions                       |            |
+|  13 | Move Semantics                                 |            |
+|  14 | std::optional and Type Safety                  |            |
+|  15 | RAII, Smart Pointers and Building C++ Projects |            |
+
+** Quotes
+Some useful fragments.
+
+*** Chapter 3
+#+PAGE: 34
+#+BEGIN_QUOTE
+If you try to read stream data of one type into a variable of another type, rather than crashing the program or filling the variable with garbage data, the stream fails by entering an error state and the value of the variable will not change. Once the stream is in this error state, /any subsequent read or write operations will automatically and silently fail/, which can be a serious problem.
+
+Note that ~clear~ won't skip over the input that put the stream into an error state; you will need to extract this input manually.
+#+END_QUOTE
+
+#+PAGE: 36
+#+BEGIN_QUOTE
+The streams library is configured so that most stream operations, including stream insertion and extraction, yield a
+nonzero value if the operation succeeds and zero otherwise.
+
+In any circumstance where a boolean value is expected, it is legal to place a stream object or a stream read/write operation.
+#+END_QUOTE
