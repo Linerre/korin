@@ -8,10 +8,14 @@ A good course for learning intermediate C++ in my opinion.  Indeed, many CS cour
   The chapter 8 on C string is missing?
 
 
-The ~playground~ directory contains code snippet that I'd like to try out when reading the book.
+
+* Directories
+1. ~playground~ for code snippet that I'd like to try out when reading the book.
+2. ~practice~ for code for some (not all) *Practice Problems* at the end of each section of the [[https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/full_course_reader.pdf][Full Course Reader]], grouped by chapter.
+3.
 
 
-** Schedule
+* Schedule
 | Lec | Topic                                          |       Date |
 |-----+------------------------------------------------+------------|
 |   1 | Welcome                                        | 2024-01-15 |
@@ -30,9 +34,7 @@ The ~playground~ directory contains code snippet that I'd like to try out when r
 |  14 | std::optional and Type Safety                  |            |
 |  15 | RAII, Smart Pointers and Building C++ Projects |            |
 
-** Quotes
-Some useful fragments.
-
+** Useful fragments
 *** Chapter 3
 #+PAGE: 34
 #+BEGIN_QUOTE
@@ -48,3 +50,14 @@ nonzero value if the operation succeeds and zero otherwise.
 
 In any circumstance where a boolean value is expected, it is legal to place a stream object or a stream read/write operation.
 #+END_QUOTE
+
+#+PAGE: 36
+A useful shorthand
+#+BEGIN_SRC cpp
+while (true) {
+  // init vars
+  if (/* condition fails */) break;
+
+  /* processing stuff */
+ }
+#+END_SRC
