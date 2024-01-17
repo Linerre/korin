@@ -3,10 +3,15 @@
 * Info
 A good course for learning intermediate C++ in my opinion.  Indeed, many CS courses of Stanford use C++.
 
-- site: https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/index.html
+- site (current version): https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/index.html
 - Reader: https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/full_course_reader.pdf
   The chapter 8 on C string is missing?
-
+- handouts (old): https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1192/handouts/
+- lecturer: https://www.youtube.com/@averywang9289 (he posted the lecture videos)
+- Assignment1: https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/assignment2.html
+   #+BEGIN_QUOTE
+   NOTE: Yes, the link says cs106L-assignment2 even for assignment 1. This quarter we renumbered the assignments but didn't move where the code lives.
+   #+END_QUOTE
 
 
 * Directories

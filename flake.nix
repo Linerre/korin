@@ -78,10 +78,10 @@
               ocamlPackages.ocaml-lsp
               ocamlformat
 
-              # C
+              # C/CPP
               pkg-config
-
-              # CPP
+              ccls
+              # vcpkg
 
               # Debugging
               gdb
