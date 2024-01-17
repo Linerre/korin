@@ -1,0 +1,19 @@
+#+TITLE:  notes
+
+* Info
+Note: [[https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&academicYear=20232024&q=CS106X+Programming+Abstractions+%28Accelerated%29&collapse=][Last offered: Autumn 2019 | UG Reqs: GER:DB-EngrAppSci, WAY-FR]]
+- site(2019): https://web.stanford.edu/class/cs106x/
+- reader: https://web.stanford.edu/class/cs106x/res/reader/CS106BX-Reader.pdf
+- old(2017): https://web.stanford.edu/class/archive/cs/cs106x/cs106x.1182/lectures.shtml
+
+* 15 Maps
+** 15.3 Hashing
+*** Determining the number of buckets
+A small number of buckets is more likely to cause collision.
+
+If N_{bucket} < N_{entries}, then collision is inevitable.
+
+
+The concept of *load factor threshold* can be used as a common technique to dynamically resize a data structure so that its capacity enlarges properly before it has to.
+
+Thumb of rule: load_factor (lambda) <= 0.7 leads to O(1) time complexity when looking up a key in a HashMap (pp.673).
