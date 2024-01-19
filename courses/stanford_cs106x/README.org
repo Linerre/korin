@@ -1,4 +1,4 @@
-#+TITLE:  notes
+#+TITLE:  Stanford CS106X
 
 * Info
 Note that the course was [[https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&academicYear=20232024&q=CS106X+Programming+Abstractions+%28Accelerated%29&collapse=][Last offered: Autumn 2019 | UG Reqs: GER:DB-EngrAppSci, WAY-FR]].
