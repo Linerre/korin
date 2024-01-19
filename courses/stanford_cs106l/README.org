@@ -15,9 +15,9 @@ A good course for learning intermediate C++ in my opinion.  Indeed, many CS cour
 
 
 * Directories
-1. ~playground~ for code snippet that I'd like to try out when reading the book.
-2. ~practice~ for code for some (not all) *Practice Problems* at the end of each section of the [[https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/full_course_reader.pdf][Full Course Reader]], grouped by chapter.
-3.
+1. ~playground~: code snippet that I'd like to try out when reading the book.
+2. ~practice~: code for some (not all) *Practice Problems* at the end of each section of the [[https://web.stanford.edu/class/archive/cs/cs106l/cs106l.1234/full_course_reader.pdf][Full Course Reader]], grouped by chapter.
+3. ~handouts~: PDF handouts of the course
 
 
 * Schedule
@@ -39,8 +39,10 @@ A good course for learning intermediate C++ in my opinion.  Indeed, many CS cour
 |  14 | std::optional and Type Safety                  |            |
 |  15 | RAII, Smart Pointers and Building C++ Projects |            |
 
-** Useful fragments
-*** Chapter 3
+
+* Useful fragments
+
+** Chapter 3
 #+PAGE: 34
 #+BEGIN_QUOTE
 If you try to read stream data of one type into a variable of another type, rather than crashing the program or filling the variable with garbage data, the stream fails by entering an error state and the value of the variable will not change. Once the stream is in this error state, /any subsequent read or write operations will automatically and silently fail/, which can be a serious problem.
@@ -66,3 +68,18 @@ while (true) {
   /* processing stuff */
  }
 #+END_SRC
+
+** Chapter 4
+Two types of syntax for ~#define~ directive:
+#+BEGIN_SRC cpp
+// 1st
+#define phrase replacement
+
+// 2nd (marco); also inline function
+#define macroname(parameter1, parameter2, ... , parameterN) macro-body
+//               ^ no whitepsace here
+#+END_SRC
+
+Read the following:
+1. ~#define~ directive and Macro in Chapter 4 of the reader
+2. #define directive (C/C++) from Microsoft: https://learn.microsoft.com/en-us/cpp/preprocessor/hash-define-directive-c-cpp
