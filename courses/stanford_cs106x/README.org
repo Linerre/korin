@@ -11,7 +11,7 @@ Other information about the course:
 - Stanford C++ Libraries: http://www.martinstepp.com/cppdoc/
 
 * 02 Functions
-In C++, functions' parameters are passed by value (by default).  If I ever want a pass-by-reference, I will need ~&~ sign:
+In C++, functions' parameters are passed by value (by default).  If I ever want a pass-by-reference, I will need ~&~ sign in the function signature:
 #+BEGIN_SRC cpp
 void setToZero(int & var) {
   var = 0;
@@ -19,9 +19,18 @@ void setToZero(int & var) {
 
 // Note when calling this function, I DO NOT need to prepend `&' to the argument
 int age = 20;
-setToZero(age)
-//        ^ NO `&' before the arg
+setToZero(age) // Implicit referencing (without '&')
+//        ^ NO `&' before the arg, because referencing (in the caller)
+// and dereferencing (in the function) are done implicitly.
 #+END_SRC
+Note the above code, a reference type in C++ is *implicitly* de-referenced.  I found a good note on this aspect: https://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html#zz-2.4
+#+BEGIN_QUOTE
+References are primarily used in passing reference in/out of functions
+to allow the called function accesses variables in the caller
+directly.
+#+END_QUOTE
+
+Pointer types, in contrast, are explicitly referenced (using ~&~) and de-referenced (using ~*~).
 
 While in Rust it must be explicitly written as a reference and dereference the var to change its value:
 #+BEGIN_SRC rust
