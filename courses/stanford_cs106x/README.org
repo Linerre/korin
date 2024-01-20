@@ -7,6 +7,64 @@ Other information about the course:
 - site(2019): https://web.stanford.edu/class/cs106x/
 - reader: https://web.stanford.edu/class/cs106x/res/reader/CS106BX-Reader.pdf
 - old(2017): https://web.stanford.edu/class/archive/cs/cs106x/cs106x.1182/lectures.shtml
+  Not recommended as most stuff on this site have turned inaccessible.
+- Stanford C++ Libraries: http://www.martinstepp.com/cppdoc/
+
+* 02 Functions
+In C++, functions' parameters are passed by value (by default).  If I ever want a pass-by-reference, I will need ~&~ sign:
+#+BEGIN_SRC cpp
+void setToZero(int & var) {
+  var = 0;
+}
+
+// Note when calling this function, I DO NOT need to prepend `&' to the argument
+int age = 20;
+setToZero(age)
+//        ^ NO `&' before the arg
+#+END_SRC
+
+While in Rust it must be explicitly written as a reference and dereference the var to change its value:
+#+BEGIN_SRC rust
+fn set_to_zero(var: &mut u32) {
+    ,*var = 0;
+}
+
+fn main() {
+    let mut var = 24u32;
+    set_to_zero(&mut var);
+}
+#+END_SRC
+Run the above Rust code using [[https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=dc65be2601b5aab6aef8133d7e832e2a][playground]].
+
+* 03 Strings
+Explicitly include ~<string>~ even though ~<iostream>~ has done so:
+#+BEGIN_SRC cpp
+#include <iostream>  // it includes <string>
+using namespace std;
+
+string name = "c++"; // note the string comes seemingly out of thin air
+#+END_SRC
+
+Yet the above is not guaranteed and it's better to do this:
+#+BEGIN_SRC cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+string name = "c++"; // note the string comes seemingly out of thin air
+#+END_SRC
+See [[https://stackoverflow.com/questions/33349833/can-stdstring-be-used-without-include-string][discussions]] on Stack Overflow.
+
+To convert a single ~char~ to C++ string, it's easy to use the ~string~ constructor:
+#+BEGIN_SRC cpp
+#include <string>
+
+char c = 'A';
+std::string apple(1, c); // "A"
+#+END_SRC
+Read:
+1. cpp reference: basic string
+2. Stack Overflow: https://stackoverflow.com/questions/17201590/how-can-i-create-a-string-from-a-single-character
 
 * 15 Maps
 ** 15.3 Hashing
