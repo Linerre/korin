@@ -8,7 +8,48 @@ Other information about the course:
 - reader: https://web.stanford.edu/class/cs106x/res/reader/CS106BX-Reader.pdf
 - old(2017): https://web.stanford.edu/class/archive/cs/cs106x/cs106x.1182/lectures.shtml
   Not recommended as most stuff on this site have turned inaccessible.
-- Stanford C++ Libraries: http://www.martinstepp.com/cppdoc/
+
+
+* Code
+In ~exercises~, code for solving (some) problems after each chapter can be found.  The code all use the default [[https://www.gnu.org/prep/standards/html_node/Formatting.html#Formatting][GNU style]].  A distinctive difference of GNU style from those (more commonly seen), such as Linux, is as follows:
+#+BEGIN_SRC cpp
+if (condition)
+  {// block starting brace is indented
+
+  }
+#+END_SRC
+Well, at first, I was upset by this. But having had a look at the [[https://github.com/emacs-mirror/emacs/blob/7e490dd63979e2695605205f0bb4fa5131f8c2d9/src/buffer.c#L427-L454][source code]] of Emacs and read the [[https://www.gnu.org/prep/standards/html_node/][GNU Coding Standards]], I started to kind of appreciate such style and decide to leave the default configuration (GNU style indentation) as is.
+
+If you ever want to customize Emacs's indentation for C-like syntax, a good starting point is Emacs wiki: [[https://www.emacswiki.org/emacs/IndentingC][Indenting C]].
+
+I did learn that [[https://www.kernel.org/doc/html/latest/process/coding-style.html][Linux kernel coding style]] takes a strong dislike towards GNU's from this thread on r/linux:i [[https://www.reddit.com/r/linux/comments/68064r/the_gnu_cc_code_formatting_style_yay_or_nay/][The GNU C/C++ code formatting style; Yay or Nay?]]
+
+
+* Worth Reviewing
+I tend to forget the tricks used in some exercises, so I think they are worth reviewing:
+| Chap. | Ex. | Page | File/Problem/Function |
+|-------+-----+------+-----------------------|
+|     5 |   6 |  249 | [[file:exercises/chapter05/ex6.cpp][sieve of Etratoshenes]] |
+|       |     |      |                       |
+
+
+
+
+* Stanford C++ Library
+Hosted here: http://www.martinstepp.com/cppdoc/
+
+Header files are grouped in different sub-directories.  Since the compiler [[https://stackoverflow.com/a/30949494][will NOT search for any sub-directories]], there are several ways to include the stanford c++ library:
+1. Put them in the same directory as those exercises.
+2. Package them for your Linux distribution and install them locally
+   Not that easily.  You need to build these files to get the
+   dynamically-linked library ~*.so~ files and then pack them with the
+   corresponding headers for your Linux distribution, usually putting
+   under ~/usr/include~ (~*.h~ files) and ~/usr/lib/~ (~*.so~ files).
+   Also you'll need to write some [[https://en.wikipedia.org/wiki/Pkg-config][pkg-config files]].
+3. Use ~I~ option in Makefile
+4. Use Nix to setup the library path properly
+5. Use STL (the way I adopted)
+
 
 * 02 Functions
 In C++, functions' parameters are passed by value (by default).  If I ever want a pass-by-reference, I will need ~&~ sign in the function signature:
@@ -45,6 +86,7 @@ fn main() {
 #+END_SRC
 Run the above Rust code using [[https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=dc65be2601b5aab6aef8133d7e832e2a][playground]].
 
+
 * 03 Strings
 Explicitly include ~<string>~ even though ~<iostream>~ has done so:
 #+BEGIN_SRC cpp
@@ -74,6 +116,19 @@ std::string apple(1, c); // "A"
 Read:
 1. cpp reference: basic string
 2. Stack Overflow: https://stackoverflow.com/questions/17201590/how-can-i-create-a-string-from-a-single-character
+
+
+* 04 Streams
+Stream hierarchy is important for understanding the stream (See page 185).
+
+If a function accepts ~istream~ and/or ~ostream~, then either ~ifstream~ (~istringstream~) or ~ofstream~ (~ostringstream~) will work.  The latter are subclass.
+
+There is NO way to loop through stream the way you do for a string.  NO such thing as ~stream[i]~.  If ever needing to inspect specific chars in a stream, covert it to a string (~getline~, ~>> string~ or the like) first.
+
+
+
+* 05 Collections
+
 
 * 15 Maps
 ** 15.3 Hashing

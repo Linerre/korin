@@ -1,0 +1,21 @@
+# Exercise files
+exs := ex1
+CXXFLAGS += -Wall
+
+# The problem with these libraries are:
+# 1. They are designed to work with Qt Creator because of the ultimate <Qt> header
+# 2. They are not independent from each other.  For example, vector.h needs utils/gmath.h; All needs private/*. CXXFLAGS +=
+# -I$$HOME/sandbox/StanfordCPPLib CXXFLAGS +=
+# -I$$HOME/sandbox/StanfordCPPLib/util CXXFLAGS +=
+# -I$$HOME/sandbox/StanfordCPPLib/system CXXFLAGS +=
+# -I$$HOME/sandbox/StanfordCPPLib/io CXXFLAGS +=
+# -I$$HOME/sandbox/StanfordCPPLib/collections CXXFLAGS +=
+# -I$$HOME/sandbox/StanfordCPPLib/graphics
+
+all: $(exs)
+
+ex1: ex1.cpp
+	$(CXX) $(CXXFLAGS) -o ex1.out $@.cpp
+
+clean:
+	rm -f *.out
