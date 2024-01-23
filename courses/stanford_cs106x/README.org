@@ -30,6 +30,8 @@ I tend to forget the tricks used in some exercises, so I think they are worth re
 | Chap. | Ex. | Page | File/Problem/Function |
 |-------+-----+------+-----------------------|
 |     5 |   6 |  249 | [[file:exercises/chapter05/ex6.cpp][sieve of Etratoshenes]] |
+|     5 |  14 |  255 | [[file:exercises/chapter05/ex14_paren_check.cpp][Parens balance]]        |
+|     5 |  15 |  255 | [[file:exercises/chapter05/ex15_roll.cpp][Roll a stack]]          |
 |       |     |      |                       |
 
 
@@ -141,3 +143,8 @@ If N_{bucket} < N_{entries}, then collision is inevitable.
 The concept of *load factor threshold* can be used as a common technique to dynamically resize a data structure so that its capacity enlarges properly before it has to.
 
 Thumb of rule: load_factor (lambda) <= 0.7 leads to O(1) time complexity when looking up a key in a HashMap (pp.673).
+
+
+* Misc
+Will code that causes ~core dumps~ or ~segment fault~ do harms to my computer?
+See this discussion on stack overflow: [[https://stackoverflow.com/a/14367598][Dangers of stack overflow and segmentation fault in C++]]
