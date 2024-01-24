@@ -8,7 +8,7 @@ Other information about the course:
 - reader: https://web.stanford.edu/class/cs106x/res/reader/CS106BX-Reader.pdf
 - old(2017): https://web.stanford.edu/class/archive/cs/cs106x/cs106x.1182/lectures.shtml
   Not recommended as most stuff on this site have turned inaccessible.
-
+- cs106b(2012): https://web.stanford.edu/class/archive/cs/cs106b/cs106b.1132/
 
 * Code
 In ~exercises~, code for solving (some) problems after each chapter can be found.  The code all use the default [[https://www.gnu.org/prep/standards/html_node/Formatting.html#Formatting][GNU style]].  A distinctive difference of GNU style from those (more commonly seen), such as Linux, is as follows:
@@ -41,19 +41,21 @@ I tend to forget the tricks used in some exercises, so I think they are worth re
 Hosted here: http://www.martinstepp.com/cppdoc/
 
 Header files are grouped in different sub-directories.  Since the compiler [[https://stackoverflow.com/a/30949494][will NOT search for any sub-directories]], there are several ways to include the stanford c++ library:
-1. Put them in the same directory as those exercises.
-2. Package them for your Linux distribution and install them locally
+1. Set up the library by following the instructions of Stanford. You'll need Qt creator installed
+2. Put them in the same directory as those exercises.
+3. Package them for your Linux distribution and install them locally
    Not that easily.  You need to build these files to get the
    dynamically-linked library ~*.so~ files and then pack them with the
    corresponding headers for your Linux distribution, usually putting
    under ~/usr/include~ (~*.h~ files) and ~/usr/lib/~ (~*.so~ files).
    Also you'll need to write some [[https://en.wikipedia.org/wiki/Pkg-config][pkg-config files]].
-3. Use ~I~ option in Makefile
-4. Use Nix to setup the library path properly
-5. Use STL (the way I adopted)
+4. Use ~I~ option in Makefile
+5. Use Nix to setup the library path properly
+6. Use STL (the way I adopted)
 
 
-* 02 Functions
+* Notes
+** 02 Functions
 In C++, functions' parameters are passed by value (by default).  If I ever want a pass-by-reference, I will need ~&~ sign in the function signature:
 #+BEGIN_SRC cpp
 void setToZero(int & var) {
@@ -89,7 +91,7 @@ fn main() {
 Run the above Rust code using [[https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=dc65be2601b5aab6aef8133d7e832e2a][playground]].
 
 
-* 03 Strings
+** 03 Strings
 Explicitly include ~<string>~ even though ~<iostream>~ has done so:
 #+BEGIN_SRC cpp
 #include <iostream>  // it includes <string>
@@ -104,7 +106,7 @@ Yet the above is not guaranteed and it's better to do this:
 #include <string>
 using namespace std;
 
-string name = "c++"; // note the string comes seemingly out of thin air
+string name = "c++";
 #+END_SRC
 See [[https://stackoverflow.com/questions/33349833/can-stdstring-be-used-without-include-string][discussions]] on Stack Overflow.
 
@@ -120,7 +122,7 @@ Read:
 2. Stack Overflow: https://stackoverflow.com/questions/17201590/how-can-i-create-a-string-from-a-single-character
 
 
-* 04 Streams
+** 04 Streams
 Stream hierarchy is important for understanding the stream (See page 185).
 
 If a function accepts ~istream~ and/or ~ostream~, then either ~ifstream~ (~istringstream~) or ~ofstream~ (~ostringstream~) will work.  The latter are subclass.
@@ -129,12 +131,11 @@ There is NO way to loop through stream the way you do for a string.  NO such thi
 
 
 
-* 05 Collections
+** 05 Collections
 
 
-* 15 Maps
+** 15 Maps
 ** 15.3 Hashing
-*** Determining the number of buckets
 A small number of buckets is more likely to cause collision.
 
 If N_{bucket} < N_{entries}, then collision is inevitable.
