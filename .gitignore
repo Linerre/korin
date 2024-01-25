@@ -14,4 +14,5 @@ eg*
 *.java
 *.log
 *.aux
+*.html
 test.*
