@@ -75,7 +75,7 @@ to allow the called function accesses variables in the caller
 directly.
 #+END_QUOTE
 
-Pointer types, in contrast, are explicitly referenced (using ~&~) and de-referenced (using ~*~).
+Pointer types, in contrast, are explicitly referenced (using ~&~) and de-referenced (using ~*~).  Mainly because pointer types have been so since C exists.  The reference type however was introduced by C++.
 
 While in Rust it must be explicitly written as a reference and dereference the var to change its value:
 #+BEGIN_SRC rust
@@ -132,6 +132,19 @@ There is NO way to loop through stream the way you do for a string.  NO such thi
 
 
 ** 05 Collections
+
+
+** 06 Designing classes
+See page 266 (273 PDF) for a simple yet useful example of class syntax in C++.
+
+See page 282 (290 PDF) for a step by step strategy for defining a new classes:
+1. Think generally about how clients are likely to use the class.
+2. Determine what information belongs in the private state of each object.
+3. Define a set of constructors to create new objects.
+4. Enumerate the operations that will become the public methods of the class
+5. Code and test the implementation
+
+
 
 
 ** 15 Maps
