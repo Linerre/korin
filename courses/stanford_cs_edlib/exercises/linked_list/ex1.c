@@ -23,7 +23,7 @@ struct node* BuildOneTwoThree() {
 }
 
 struct node* NewBuildOneTwoThree() {
-	struct node* head, second, third;
+	struct node *head, *second, *third;
 	head = malloc(sizeof(struct node));
 	head->data = 1; // setup first node
 	head->next = malloc(sizeof(struct node)); // note: pointer assignment rule
