@@ -10,6 +10,9 @@
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
+      # inherit ``copies'' the above ``system'', so it's equivalent to say
+      # import nixpkgs { system = system; }
+      # See: https://nixos.org/manual/nix/stable/language/constructs#inheriting-attributes
       pkgs = import nixpkgs { inherit system; };
     in {
       # First, the type of outputs (packages, devShells, checks ...)
