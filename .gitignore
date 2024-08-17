@@ -15,4 +15,5 @@ eg*
 *.log
 *.aux
 *.html
+*.o
 test.*

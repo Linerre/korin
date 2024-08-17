@@ -26,11 +26,11 @@ int bit_xor(int x, int y) {
     z = ~z;
 
     /* find out positions where both x and y have 0 and
-     * mark these positions with with0
+     * mark these positions with 0
      */
     int _z = ~((~x) & (~y));
 
-    /* fix those 1s that are supposed to be 0 */
+    /* fix 1s in z that are supposed to be 0 */
     z &= _z;
     return z;
 }
@@ -85,7 +85,7 @@ int replaceByte(int x, int n, int c) {
 	  as the bit representation is as expected
 	*/
 
-	/* set shift according to n; 1 ops */
+	/* set shift according to n; 1 op */
 	int shift = (n<<3);
 
 	/* shift c to proper value; 1 op */
