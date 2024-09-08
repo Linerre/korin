@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "common.h"
 
-
 BinaryTree BT;
 
 BinaryTree newbt(int val)
@@ -24,7 +23,6 @@ void pre_order(btree bt)
   printf("%d ", bt->value);
   pre_order(bt->left);
   pre_order(bt->right);
-
 }
 
 /* Traverse the given binary tree `bt' in the order of
@@ -38,7 +36,16 @@ void in_order(btree bt)
   /* print the node value only for the second time */
   printf("%d ", bt->value);
   in_order(bt->right);
+}
 
+void pos_order(btree bt)
+{
+  if (bt == NULL)
+    return;
+
+  pos_order(bt->left);
+  pos_order(bt->right);
+  printf("%d ", bt->value);
 }
 
 
@@ -62,8 +69,15 @@ int main(int argc, char *argv[])
   t3.left = &t6;
   t3.right = &t7;
 
+  printf("Traversing in pre-order: \n");
   pre_order(&BT);
+  printf("\n");
+  printf("Traversing in pre-order: \n");
   in_order(&BT);
+  printf("\n");
+  printf("Traversing in pre-order: \n");
+  pos_order(&BT);
+  printf("\n");
 
   return 0;
 }
