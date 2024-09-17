@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "common.h"
 
+#define visit(val) printf("%d ", val)
+
 BinaryTree BT;
 
 BinaryTree newbt(int val)
@@ -20,7 +22,7 @@ void pre_order(btree bt)
     return;
 
   /* print the node value only for the first time */
-  printf("%d ", bt->value);
+  visit(bt->value);
   pre_order(bt->left);
   pre_order(bt->right);
 }
@@ -34,10 +36,12 @@ void in_order(btree bt)
 
   in_order(bt->left);
   /* print the node value only for the second time */
-  printf("%d ", bt->value);
+  visit(bt->value);
   in_order(bt->right);
 }
 
+/* Traverse the given binary tree `bt' in the order of
+   left, right, middle (root/node) */
 void pos_order(btree bt)
 {
   if (bt == NULL)
@@ -45,7 +49,7 @@ void pos_order(btree bt)
 
   pos_order(bt->left);
   pos_order(bt->right);
-  printf("%d ", bt->value);
+  visit(bt->value);
 }
 
 
