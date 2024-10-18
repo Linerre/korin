@@ -22,14 +22,6 @@
       let
         overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
-        # hkgs = pkgs.haskellPackages.ghcWithPackages (p: with p; [
-        #   hlint           # 3.5
-        #   hindent         # 6.0.0
-        #
-        #   # tools
-        #   cabal-install
-        #   pandoc
-        # ]);
       in
         # Attr set to be outputed by this flake
         {
