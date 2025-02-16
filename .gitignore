@@ -17,3 +17,6 @@ eg*
 *.html
 *.o
 test.*
+
+# ignore repl
+*repl*
