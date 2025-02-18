@@ -24,21 +24,18 @@
            sum   0
            ans   (inc n)]
       (if (>= right n)
+        ;; done
         (if (<= ans n) ans 0)
+        ;; narrow the sliding window from left to right by droping the leftmost val
         (let [[a s l] (loop [l left
                              s (+ sum (nth nums right))
                              a ans]
                         (if (>= s target)
-                          (recur
-                            (inc l)
-                            (- s (nth nums l))
-                            (min ans (- (inc right) l)))
+                          (recur (inc l)
+                                 (- s (nth nums l))
+                                 (min ans (- (inc right) l)))
                           [a, s, l]))]
-          (recur
-            (inc right)
-            l
-            s
-            (min ans a)))))))
+          (recur (inc right) l s (min ans a)))))))
 
 (comment
   (min-sub-array-len 7 [2 3 1 2 4 3]))
@@ -48,3 +45,24 @@
 
 (comment
   (min-sub-array-len 11 [1,1,1,1,1,1,1,1]))
+
+;; more of clojure style
+(defn min-sub-array-len2 [target nums]
+  (->> (range (count nums))
+       (reduce
+        (fn [[left sum ans] right]
+          (let [new-sum (+ sum (nth nums right))
+                [new-left new-sum new-ans]
+                (loop [l left, s new-sum, a ans]
+                  (if (>= s target)
+                    (recur (inc l)
+                           (- s (nth nums l))
+                           (min a (- (inc right) l)))
+                    [l s a]))]
+            [new-left new-sum new-ans]))
+        [0 0 Integer/MAX_VALUE])
+       last
+       (#(if (= Integer/MAX_VALUE %) 0 %))))
+
+(comment
+  (min-sub-array-len2 7 [2 3 1 2 4 3]))
