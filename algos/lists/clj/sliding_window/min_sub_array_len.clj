@@ -1,4 +1,4 @@
-(ns sliding-window)
+(ns sliding-window.min-sub-array-len)
 
 ;;; Leetcode 209
 ;;; https://leetcode.com/problems/minimum-size-subarray-sum/description/

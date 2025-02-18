@@ -1,0 +1,22 @@
+* Example solutions from Endlesscheng (灵茶山艾府)
+
+** Leetcode 11: container with most water
+:PROPERTIES:
+:URL:      https://leetcode.cn/problems/container-with-most-water/solutions/1974355/by-endlesscheng-f0xz/
+:END:
+#+BEGIN_SRC python
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        ans = left = 0
+        right = len(height) - 1
+        while left < right:
+            area = (right - left) * min(height[left], height[right])
+            ans = max(ans, area)
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
+        return ans
+#+END_SRC python
+
+** Leetcode 167: sum of two numbers
