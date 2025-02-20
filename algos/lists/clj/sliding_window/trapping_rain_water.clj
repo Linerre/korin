@@ -54,7 +54,7 @@
          pre-max (max 0 (heights l))
          suf-max (max 0 (heights r))
          ans 0]
-    (if (< l r)
+    (if (< l r)                         ; when (= r l) there is no space for water
       (if (< pre-max suf-max)
         (recur [(inc l), r]
                (max pre-max (heights (inc l)))
