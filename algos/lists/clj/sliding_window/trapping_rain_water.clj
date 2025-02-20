@@ -14,20 +14,20 @@
            suf-maxs (conj '() suf-c)
            [new-suf-c & new-suf-rest] rrest]
       (if (seq new-pre-rest)
-        (recur (conj pre-maxs (max new-pre-c (last pre-maxs)))
+        (recur (conj pre-maxs (max new-pre-c (peek pre-maxs)))
                new-pre-rest
                (conj suf-maxs (max new-suf-c (first suf-maxs)))
                new-suf-rest)
         (reduce + (apply map #(- (min %1 %2) %3)
                          (conj []
-                               (conj pre-maxs (max new-pre-c (last pre-maxs)))
-                               (vec (conj suf-maxs (max new-suf-c (last suf-maxs))))
+                               (conj pre-maxs (max new-pre-c (peek pre-maxs)))
+                               (vec (conj suf-maxs (max new-suf-c (peek suf-maxs))))
                                heights)))))))
 
-(comment (trapping-rain-water [0,1,0,2,1,0,1,3,2,1,2,1]))
+(assert (= 6 (trapping-rain-water [0,1,0,2,1,0,1,3,2,1,2,1])))
 ;; => 6
 
-(comment (trapping-rain-water [4,2,0,3,2,5]))
+(assert (= 9 (trapping-rain-water [4,2,0,3,2,5])))
 ;; => 9
 
 
