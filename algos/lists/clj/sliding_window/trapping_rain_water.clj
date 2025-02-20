@@ -4,6 +4,8 @@
 ;;; https://leetcode.com/problems/trapping-rain-water/
 
 ;;; using `loop`
+;;; time: O(n)
+;;; space: O(n)
 (defn trapping-rain-water [heights]
   (let [[pre-c & lrest] heights
         [suf-c & rrest] (rseq heights)]
@@ -29,6 +31,9 @@
 ;; => 9
 
 
+;;; without `loop`
+;;; time: O(n)
+;;; space: O(n)
 (defn trapping-rain-water2 [heights]
   (let [pre-maxs (reductions max heights)
         sub-maxs (reverse (reductions max (rseq heights)))
@@ -39,4 +44,31 @@
 ;; => 6
 
 (comment (trapping-rain-water2 [4,2,0,3,2,5]))
+;; => 9
+
+;;; Use double pointers
+;;; time: O(n)
+;;; space: O(1)
+(defn trapping-rain-water3 [heights]
+  (loop [[l r] [0 (dec (count heights))]
+         pre-max (max 0 (heights l))
+         suf-max (max 0 (heights r))
+         ans 0]
+    (if (< l r)
+      (if (< pre-max suf-max)
+        (recur [(inc l), r]
+               (max pre-max (heights (inc l)))
+               (max suf-max (heights r))
+               (+ ans (- pre-max (heights l))))
+        (recur [l, (dec r)]
+               (max pre-max (heights l))
+               (max suf-max (heights (dec r)))
+               (+ ans (- suf-max (heights r)))))
+
+      ans)))
+
+(comment (trapping-rain-water3 [0,1,0,2,1,0,1,3,2,1,2,1]))
+;; => 6
+
+(comment (trapping-rain-water3 [4,2,0,3,2,5]))
 ;; => 9
